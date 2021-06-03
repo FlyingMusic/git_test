@@ -36,10 +36,10 @@ def run_optimization():
     with tf.GradientTape() as g:
         pred = linear_regression(X)
         loss = mean_square(pred, Y)
-    # 计算梯度
-    gradients = g.gradient(loss, [W, b])
-    # 更新W，b
-    optimizer.apply_gradients(zip(gradients, [W, b]))
+        # 计算梯度
+        gradients = g.gradient(loss, [W, b])
+        # 更新W，b
+        optimizer.apply_gradients(zip(gradients, [W, b]))
 
 # 开始训练
 for step in range(1, training_steps+1):
