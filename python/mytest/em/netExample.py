@@ -19,10 +19,10 @@ def varianceWeight(height, gamma, mu, n):
 
 
 def isSame(lefarr, rigarr):
-    if(len(lefarr) != rigarr):
+    if(len(lefarr) != len(rigarr)):
         return False
     for l,r in zip(lefarr, rigarr):
-        if(math.fabs(l - r) > 0.0001):
+        if(math.fabs(l - r) > 0.01):
             return False
     return True
 
@@ -30,8 +30,8 @@ def calcEM(height):
     N = len(height)
     gp = 0.5
     bp = 0.5
-    gmu, gsigma = min(height), 10
-    bmu, bsigma = max(height), 10
+    gmu, gsigma = min(height), 5
+    bmu, bsigma = max(height), 5
     ggamma = list(range(N))
     bgamma = list(range(N))
     cur = [gp, bp, gmu, gsigma, bmu, bsigma]
@@ -51,6 +51,9 @@ def calcEM(height):
         gp = float(gn) / float(N)
         bn = sum(bgamma)
         bp = float(bn) / float(N)
+         
+#        print(ggamma[0:4])
+#        print(bgamma[0:4])
         gmu = averageWeight(height, ggamma, gn)
         gsigma = varianceWeight(height, ggamma, gmu, gn)
         bmu = averageWeight(height, bgamma, bn)
@@ -60,7 +63,8 @@ def calcEM(height):
         if isSame(cur, now):
             break
         cur = now
-        print(times, gmu, gsigma, bmu, bsigma)
+        print()
+        print(gmu, gsigma, bmu, bsigma)
         times += 1 
     return now
 
