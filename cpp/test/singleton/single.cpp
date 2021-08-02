@@ -1,35 +1,38 @@
 #include <iostream>
+#include <thread>
 
 using namespace std;
 
 class Single {
 public:
     ~Single() { cout << "~Single" << endl; }
-    static Single *getInstance() {
-        if(m_instance == NULL) {
-            m_instance = new Single();
-        }
-        return m_instance;
+    static Single& getInstance() {
+        static Single single;
+        return single;
     }
-public:
-    class Garbo {
-    public:
-        ~Garbo() {
-            if (Single::m_instance != NULL)
-                delete Single::m_instance;
-        }
-        static Garbo garbo;
-    };
 private:
-    static Single *m_instance;
+    Single(const Single&) = delete;
+    Single& operator=(const Single&) = delete;
     Single() { cout << "Single" << endl;}
 };
 
+class UserClass : public Single {
 
-Single* Single::m_instance = NULL;
-Single::Garbo Single::Garbo::garbo;
+};
+int func() {
+    Single &pSingl = Single::getInstance();
+}
 
 int main() {
-    Single *pSingl = Single::getInstance();
+
+    std::thread t[10];
+
+    for (int i = 0; i < 10; ++i) {
+        t[i] = std::thread(func);
+    }
+
+    for (int i = 0; i < 10; ++i) {
+        t[i].join();
+    }
     return 0;
 }
