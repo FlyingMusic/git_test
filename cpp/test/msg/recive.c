@@ -23,7 +23,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "msgget failed width error: %d\n", errno);
         exit(EXIT_FAILURE);
     }
- 
+    printf("msgid = %d\n", msgid); 
     // 从队列中获取消息，直到遇到end消息为止
     while (1)
     {

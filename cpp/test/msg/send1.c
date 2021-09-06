@@ -26,13 +26,13 @@ int main(int argc, char **argv)
         fprintf(stderr, "msgget failed error: %d\n", errno);
         exit(EXIT_FAILURE);
     }
- 
+    printf("msgid = %d\n", msgid); 
     // 向消息队里中写消息，直到写入end
     while (1)
     {
         printf("Enter some text: \n");
         fgets(buffer, BUFSIZ, stdin);
-        data.msg_type = 1; // 注意2
+        data.msg_type = 1; // 注意1
         strcpy(data.text, buffer);
  
         // 向队列里发送数据
