@@ -30,15 +30,11 @@ const char *myStrStr(const char *str, const char *pattern) {
     int sidx = 0;
     int pidx = 0;
     while (pidx < plen && sidx < slen) {
-        if (str[sidx] == pattern[pidx]) {
+        if (pidx == -1 || str[sidx] == pattern[pidx]) {
             sidx++;
             pidx++;
         } else {
-            if (pidx == 0) {
-                sidx++;
-            } else {
-                pidx = last[pidx]; 
-            }
+            pidx = last[pidx]; 
         }
     }
     if (pidx == plen) {
