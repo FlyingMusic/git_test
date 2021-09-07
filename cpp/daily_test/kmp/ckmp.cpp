@@ -3,19 +3,14 @@
 
 void getLast(const char *pattern, int *last) {
     int plen = strlen(pattern);
-    last[0] = 0;
-    int i = 1;
-    int start = 0;
-    while (i < plen) {
-        if (pattern[i] == pattern[start]) { //i+1失配时，填入i处的值，所以i处的值是跟前面相等的下一个，即start++
-            start++;
-            last[i++] = start;
+    last[0] = -1;
+    int i = 0;
+    int start = -1;
+    while (i < plen - 1) {
+        if (start == -1 || pattern[i] == pattern[start]) { 
+            last[++i] = ++start;
         } else { //不相等时，需要将start变小
-            if (start == 0) { //已经变小到0
-                last[i++] = 0;
-            } else {
-                start = last[start-1]; //x处失配，则从last[x-1]处重新匹配
-            }
+            start = last[start]; //x处失配，则从last[x]处重新匹配
         }
     }
 }
@@ -42,7 +37,7 @@ const char *myStrStr(const char *str, const char *pattern) {
             if (pidx == 0) {
                 sidx++;
             } else {
-                pidx = last[pidx-1]; 
+                pidx = last[pidx]; 
             }
         }
     }
