@@ -14,6 +14,7 @@ void getLast(const char *pattern, int *last) {
             //后，要跳转的地方放在前一个位置
             //放到i+1处，则正好左移了一位，下标跟失配位置匹配上了，即x = last[x],即当前位置失配后，要跳转的前面的位置就
             //放在当前位置
+            //0-start是前缀 i是后缀结尾
             last[i++] = ++start;
         } else { //不相等时，需要将start变小
             if (start == 0) { //已经变小到0
@@ -58,7 +59,7 @@ const char *myStrStr(const char *str, const char *pattern) {
 }
 int main() {
     const char *str =  "abcabcabdddabcabcxyz";
-    const char *pattern = "abcabdddabcabcx";
+    const char *pattern = "aacabdddabcabcx";
     //const char *pattern = "abcabcabcabcabc";
     //const char *pattern = "aaaaaaa";
     const char *p = myStrStr(str, pattern);

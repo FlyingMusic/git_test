@@ -27,5 +27,8 @@ private:
 int main() {
     unique_ptr<A> upa(new B());
     Control c(std::move(upa));
+
+    unique_ptr<A> p3(new A());
+
     return 0;
 }

@@ -44,7 +44,7 @@ const char *myStrStr(const char *str, const char *pattern) {
 }
 int main() {
     const char *str =  "abcabcabdddabcabcxyz";
-    const char *pattern = "abcabdddabcabcx";
+    const char *pattern = "aacabdddabcabcx";
     //const char *pattern = "abcabcabcabcabc";
     //const char *pattern = "aaaaaaa";
     const char *p = myStrStr(str, pattern);
